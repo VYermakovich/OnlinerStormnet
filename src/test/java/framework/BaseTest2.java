@@ -1,9 +1,10 @@
 package framework;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
+
+import org.testng.annotations.*;
 
 
-public class BaseTest {
+@Listeners(TestListener.class)
+public class BaseTest2 {
     public static Browser driver = new Browser();
 
     @BeforeMethod

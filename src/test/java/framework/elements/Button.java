@@ -1,18 +1,19 @@
 package framework.elements;
 
-import framework.elements.BaseElement;
 import org.openqa.selenium.By;
 
-public class Label extends BaseElement {
-    public Label(By by) {
+public class Button extends BaseElement{
+
+    public Button(By by) {
         super(by);
     }
 
-    public Label(By by, String name) {
+    public Button(By by, String name) {
         super(by, name);
     }
+
     @Override
     protected String getElementType() {
-        return "Label:";
+        return "Button:";
     }
 }
