@@ -1,23 +1,23 @@
 package onliner;
 
-import framework.BaseTest2;
+import framework.BaseTest;
 import io.qameta.allure.Description;
 import onliner.pageObject.CatalogPage;
 import onliner.pageObject.MainPage;
 import org.testng.annotations.Test;
 
-public class NavigationTest2 extends BaseTest2 {
+public class NavigationTest extends BaseTest {
 
     @Test
     @Description("Переход на страницу 'Ноутбуки, компьютеры, мониторы'. Ожидаемый результат: Страница 'Ноутбуки, компьютеры, мониторы' загрузилась.")
     public void navigationMenuTest() {
         MainPage mainPage = new MainPage();
-        mainPage.navigateHeaderMenu();
+        mainPage.navigateHeaderMenu("Каталог");
 
         CatalogPage catalogPage = new CatalogPage();
-        catalogPage.navigateToComputers();
-        catalogPage.navigateToSubMenuItems();
-        catalogPage.navigateToSubMenuCategory();
+        catalogPage.navigateToMainMenuItem("Компьютеры");
+        catalogPage.navigateToSubMenuItems("Ноутбуки, компьютеры, мониторы");
+        catalogPage.navigateToSubMenuCategory("Игровые ноутбуки");
     }
 
     /*

@@ -1,6 +1,8 @@
 package framework.elements;
 
 import framework.Browser;
+import framework.PropertyReader;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
@@ -9,6 +11,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+@Log4j2
 public abstract class BaseElement {
     protected WebElement element;
     protected List<WebElement> elements;
@@ -45,12 +48,12 @@ public abstract class BaseElement {
         try {
             Browser.getDriver().manage().timeouts().implicitlyWait(Integer.parseInt(Browser.getTimeoutForCondition()), TimeUnit.SECONDS);
             element = Browser.getDriver().findElement(by);
-            System.out.println(getElementType() + ": " + by + " - is present");
+            log.info(getElementType() + ": " + by + " - is present");
             return element.isDisplayed();
         } catch (NoSuchElementException e) {
-            System.out.println(getElementType() + ": " + by + " - is not present. Exception - NoSuchElementException");
+            log.info(getElementType() + ": " + by + " - is not present. Exception - NoSuchElementException");
         } catch (Exception e) {
-            System.out.println("Exception: " + e);
+            log.info("Exception: " + e);
         }
         return false;
     }
@@ -84,16 +87,19 @@ public abstract class BaseElement {
 
     public void sendKeys(String sendKeys) {
         isElementPresent();
+        log.info("Send keys: " + getElementType() + ":" + by + " is displayed: " + element.isDisplayed());
         getElement().sendKeys(sendKeys);
     }
 
     public boolean isSelected() {
         isElementPresent();
+        log.info(getElementType() + ":" + by + " is selected: " + element.isSelected());
         return element.isSelected();
     }
 
     public boolean isDisplayed() {
         isElementPresent();
+        log.info(getElementType() + ":" + by + " is displayed: " + element.isDisplayed());
         return element.isDisplayed();
     }
 
@@ -104,6 +110,7 @@ public abstract class BaseElement {
 
     public void click() {
         isElementPresent();
+        log.info(PropertyReader.getProperty("element.click") + "-" + getElementType() + ":" + by);
         element.click();
     }
 
@@ -122,7 +129,7 @@ public abstract class BaseElement {
     }
 
     public void moveAndClickByAction() {
-       isElementPresent();
+        isElementPresent();
         Actions actions = new Actions(Browser.getDriver());
         actions.moveToElement(element).click().perform();
     }
@@ -131,6 +138,7 @@ public abstract class BaseElement {
         isElementPresent();
         Actions actions = new Actions(Browser.getDriver());
         actions.moveToElement(element).perform();
+        System.out.println("Moved to Element");
     }
 
     public void selectComboBox(String value) {

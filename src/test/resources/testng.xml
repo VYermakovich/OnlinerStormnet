@@ -2,9 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Onliner" parallel="tests" thread-count="1">
     <test name="test">
+        <parameter name="city" value="Minsk"/>
         <classes>
             <class name="onliner.NavigationTest"/>
-            <class name="onliner.NavigationTest2"/>
         </classes>
     </test>
 </suite>
